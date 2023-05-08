@@ -1,14 +1,23 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const connectDB = (handler) => async (req, res) => {
+const connectDB = async () => {
   try {
-    await mongoose.createConnection(process.env.MONGO_URI);
-    return handler(req, res);
+
+   const uri = 'mongodb://localhost:27017/saloonlog';
+    // console.log('Connecting to MongoDB at:', uri);
+   
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB');
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('Failed to connect to MongoDB:', error.message);
   }
 };
 
 export default connectDB;
+
+
+
 
