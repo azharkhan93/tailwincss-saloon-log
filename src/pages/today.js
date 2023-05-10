@@ -19,18 +19,18 @@ export default function Today() {
         display:block;
     }
   `;
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post("/api/users", formData);
-      console.log("New user:", response.data);
-      const usersResponse = await axios.get("/api/getUser");
-      setUsers(usersResponse.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post("/api/users", formData);
+            console.log("New user:", response.data);
+            const usersResponse = await axios.get("/api/getUser");
+            setUsers(usersResponse.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -139,9 +139,9 @@ export default function Today() {
 
 
                         <tbody className="overflow-y-auto max-h-20">
-                            {users.map((user) => (
+                            {users.map((user, index) => (
                                 <tr className="border-b dark:border-neutral-500 ease-in-out hover:bg-neutral-100" key={user.id}>
-                                    <td className="whitespace-nowrap px-6 py-4">{user.id}</td>
+                                    <td className="whitespace-nowrap px-6 py-4">{index + 1}</td>
                                     <td className="whitespace-nowrap px-6 py-4">{user.first_name}</td>
                                     <td className="whitespace-nowrap px-6 py-4">{user.last_name}</td>
                                     <td className="whitespace-nowrap px-6 py-4">{user.phone_number}</td>
@@ -153,6 +153,7 @@ export default function Today() {
                                 </tr>
                             ))}
                         </tbody>
+
                         {/* <tbody className="overflow-y-auto max-h-20">
                             {
                                 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
